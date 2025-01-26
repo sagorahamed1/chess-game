@@ -13,7 +13,7 @@ class CustomText extends StatelessWidget {
         this.right = 0,
         this.top = 0,
         this.bottom = 0,
-        this.fontsize,
+        this.fontSize,
         this.textHeight,
         this.fontWeight = FontWeight.w400,
         this.color,
@@ -24,7 +24,7 @@ class CustomText extends StatelessWidget {
   final double right;
   final double top;
   final double bottom;
-  final double? fontsize;
+  final double? fontSize;
   final FontWeight fontWeight;
   final Color? color;
   final String text;
@@ -44,7 +44,7 @@ class CustomText extends StatelessWidget {
         maxLines: maxline,
         overflow: textOverflow??TextOverflow.ellipsis,
         style: TextStyle(
-            fontSize: fontsize ?? 14,
+            fontSize: fontSize ?? 14,
             fontFamily:fontName?? "Montserrat-Regular",
             fontWeight:fontWeight == null ? FontWeight.w400 : fontWeight ,
             color: color ?? Colors.black

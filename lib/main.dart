@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/routes/app_routes.dart';
 
@@ -11,12 +12,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Chess Game',
-      debugShowCheckedModeBanner: false,
-      routeInformationParser: AppRoutes.goRouter.routeInformationParser,
-      routeInformationProvider: AppRoutes.goRouter.routeInformationProvider,
-      routerDelegate: AppRoutes.goRouter.routerDelegate,
+    return ScreenUtilInit(
+      designSize: Size(390, 852),
+      child: MaterialApp.router(
+        theme: ThemeData(scaffoldBackgroundColor: Color(0xffebf2f8)),
+        title: 'Chess Game',
+        debugShowCheckedModeBanner: false,
+        routeInformationParser: AppRoutes.goRouter.routeInformationParser,
+        routeInformationProvider: AppRoutes.goRouter.routeInformationProvider,
+        routerDelegate: AppRoutes.goRouter.routerDelegate,
+      ),
     );
   }
 }

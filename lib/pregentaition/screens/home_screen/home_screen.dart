@@ -1,140 +1,210 @@
-import 'dart:math';
-import 'package:chess/pregentaition/widgets/custom_network_image.dart';
 import 'package:chess/pregentaition/widgets/custom_text.dart';
-import 'package:square_bishop/square_bishop.dart';
-import 'package:bishop/bishop.dart' as bishop;
+import 'package:chess/pregentaition/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:square_bishop/square_bishop.dart';
-import 'package:squares/squares.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../widgets/custom_button.dart';
+import 'inner_widgets/white_or_black_option_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late bishop.Game game;
-  late SquaresState state;
-  int player = Squares.white;
-  bool aiThinking = false;
-  bool flipBoard = false;
+   String selectedOption = 'White';
 
-  @override
-  void initState() {
-    _resetGame(false);
-    super.initState();
-  }
+  List <dynamic> gameTypeList = [
+    {
+      "title" : "Play\nComputer",
+      "icon" : Icon(Icons.ac_unit_outlined)
+    },
 
-  void _resetGame([bool ss = true]) {
-    game = bishop.Game(variant: bishop.Variant.standard());
-    state = game.squaresState(player);
-    if (ss) setState(() {});
-  }
+    {
+      "title" : "Play\nOnline",
+      "icon" : Icon(Icons.ac_unit_outlined)
+    },
 
-  void _flipBoard() => setState(() => flipBoard = !flipBoard);
+    {
+      "title" : "Play\nFriend",
+      "icon" : Icon(Icons.ac_unit_outlined)
+    },
 
-  void _onMove(Move move) async {
-    bool result = game.makeSquaresMove(move);
-    if (result) {
-      setState(() => state = game.squaresState(player));
-    }
-    if (state.state == PlayState.theirTurn && !aiThinking) {
-      setState(() => aiThinking = true);
-      await Future.delayed(
-          Duration(milliseconds: Random().nextInt(4750) + 250));
-      game.makeRandomMove();
-      setState(() {
-        aiThinking = false;
-        state = game.squaresState(player);
-      });
-    }
-  }
+    {
+      "title" : "Play\nOthers",
+      "icon" : Icon(Icons.ac_unit_outlined)
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+      resizeToAvoidBottomInset: false,
 
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CustomNetworkImage(imageUrl: '',
-                      boxShape: BoxShape.circle,
-                      height: 80, width: 80),
-                ),
+      ///back ground sound + demo game screen + button of game type +
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(text: 'Sagor Ahamed', fontsize: 22,),
-                    CustomText(text: 'Bangladesh', fontsize: 18,),
-                  ],
-                )
-              ],
-            ),
+      body: Column(
+        children: [
 
-            SizedBox(height: 20),
+          /// ====================app logo===================>>>>
+
+
+          ///====================game screen demo=================>>>
 
 
 
+          ///====================game buttons===================>>>
 
+          SizedBox(height: 300),
 
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: BoardController(
-
-                state: flipBoard ? state.board.flipped() : state.board,
-                playState: state.state,
-                pieceSet: PieceSet.merida(),
-                theme: BoardTheme.brown,
-                moves: state.moves,
-                onMove: _onMove,
-                onPremove: _onMove,
-                markerTheme: MarkerTheme(
-                  empty: MarkerTheme.dot,
-                  piece: MarkerTheme.corners(),
-                ),
-                promotionBehaviour: PromotionBehaviour.autoPremove,
+          GridView.builder(
+            shrinkWrap: true,
+            itemCount: gameTypeList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                childAspectRatio: 2.0059
               ),
-            ),
-            const SizedBox(height: 32),
+              itemBuilder: (context, index) {
+              var gameType = gameTypeList[index];
+                return GestureDetector(
+                  onTap: () {
+                    if(index == 0){
 
 
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CustomNetworkImage(imageUrl: '',
-                      boxShape: BoxShape.circle,
-                      height: 80, width: 80),
-                ),
+                      ///================play with computer=======>>>
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(text: 'Sagor Ahamed', fontsize: 22,),
-                    CustomText(text: 'Bangladesh', fontsize: 18,),
-                  ],
-                )
-              ],
-            ),
+                      showDialog(context: context, builder: (context) {
+                       return AlertDialog(
 
-            OutlinedButton(
-              onPressed: _resetGame,
-              child: const Text('New Game'),
-            ),
-            IconButton(
-              onPressed: _flipBoard,
-              icon: const Icon(Icons.rotate_left),
-            ),
-          ],
-        ),
+                         content: Column(
+                           mainAxisSize: MainAxisSize.min,
+                           children: [
+
+                             CustomText(text: "Choose Option",),
+
+                             Divider(),
+
+                              WhiteOrBlackOptionDialog(),
+
+                           ],
+                         ),
+                       );
+                      });
+
+
+
+                    }else if(index == 1){
+
+                      ///================Play with online player============>>
+
+                      showDialog(context: context, builder: (context) {
+                        return AlertDialog(
+
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+
+                              CustomText(text: "Play with online random player", bottom: 10.h),
+
+                              Divider(),
+
+                              SizedBox(height: 12.h),
+
+                              OnlineDialog(),
+
+                            ],
+                          ),
+                        );
+                      });
+
+                    }else if(index == 2){
+                      ///===============Play with friends ===================>>>
+
+                    }else if(index == 3){
+                      ///===============Others Options ==================>>>>
+
+                    }
+                  },
+                  child: Card(
+                    color: Colors.grey,
+                    child: Center(
+                      child: Row(
+                        children: [
+
+                          SizedBox(width: 16.w),
+                          gameType["icon"],
+                          SizedBox(width: 8.w),
+
+                          Column(
+                            children: [
+                              ///=============Icon and Text=============<<
+
+                              SizedBox(height: 4.h),
+                              Center(child: CustomText(text: "${gameType["title"]}", fontSize: 20.h, textAlign: TextAlign.start)),
+
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+          )
+
+        ],
+      ),
+
+    );
+  }
+}
+
+
+
+
+class OnlineDialog extends StatelessWidget {
+   OnlineDialog({super.key});
+
+  final TextEditingController nameCtrl = TextEditingController();
+  final TextEditingController countryCtrl = TextEditingController();
+   final GlobalKey<FormState> forKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: forKey,
+      child: Column(
+        children: [
+
+
+          ///=====================Enter Your name=================>>.
+
+          CustomTextField(
+              controller: nameCtrl,
+             hintText: "Enter Your Name",
+          ),
+
+
+          SizedBox(height: 16.h),
+
+          ///=====================Enter Your name=================>>.
+
+          CustomTextField(
+            controller: countryCtrl,
+            hintText: "Enter Your Country",
+          ),
+
+
+
+          SizedBox(height: 50.h),
+
+
+          CustomButton(title: "Play", onpress: (){})
+        ],
       ),
     );
   }

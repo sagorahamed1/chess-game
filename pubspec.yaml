@@ -19,11 +19,16 @@ dependencies:
   lottie:
   go_router:
   shared_preferences:
-  squares: ^1.2.1
-  bishop: ^1.4.4
-  square_bishop: ^0.3.0
+  squares:
+  bishop:
+  square_bishop:
   cached_network_image: ^3.4.1
   shimmer: ^3.0.0
+  flutter_screenutil:
+
+  firebase_core:
+  firebase_auth:
+  cloud_firestore:
 
 dev_dependencies:
   flutter_test:

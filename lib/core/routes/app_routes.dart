@@ -1,5 +1,6 @@
 
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/main.dart';
 
 import '../../pregentaition/screens/home_screen/home_screen.dart';
 import '../../pregentaition/screens/login/log_in_screen.dart';
@@ -40,7 +41,7 @@ class AppRoutes {
         GoRoute(
           path: homeScreen,
           name: homeScreen,
-          builder: (context, state) =>  const HomeScreen(),
+          builder: (context, state) => HomeScreen(),
         ),
 
       ]
