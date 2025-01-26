@@ -1,4 +1,5 @@
 
+import 'package:chess/pregentaition/screens/play_online/play_online_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/main.dart';
 
@@ -11,6 +12,7 @@ class AppRoutes {
   static const String splashScreen = "/splashScreen";
   static const String loginScreen = "/loginScreen";
   static const String homeScreen = "/HomeScreen";
+  static const String playOnlineScreen = "/PlayOnlineScreen";
 
 
   static final GoRouter goRouter = GoRouter(
@@ -43,6 +45,14 @@ class AppRoutes {
           name: homeScreen,
           builder: (context, state) => HomeScreen(),
         ),
+
+
+        GoRoute(
+          path: playOnlineScreen,
+          name: playOnlineScreen,
+          builder: (context, state) => PlayOnlineScreen(),
+        ),
+
 
       ]
   );
