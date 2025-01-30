@@ -30,18 +30,15 @@
 
 
 
-import 'package:chess/pregentaition/screens/home_screen/home_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:squares/squares.dart' as squares;
-import 'package:bishop/bishop.dart' as bishop;
 
-import 'bloc/game/game_bloc.dart';
-import 'bloc/game/game_state.dart';
+import 'package:chess/services/firebase_services.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/routes/app_routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  FirebaseService.setUpFirebase();
   runApp(const MyApp());
 }
 
@@ -63,3 +60,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

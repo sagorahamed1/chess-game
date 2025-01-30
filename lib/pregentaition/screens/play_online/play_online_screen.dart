@@ -6,8 +6,6 @@ import '../../../bloc/game/game_bloc.dart';
 import '../../../bloc/game/game_event.dart';
 import '../../../bloc/game/game_state.dart';
 import 'package:chess/bloc/game/game_state.dart' as bloc;
-import 'package:bishop/bishop.dart' as bishop;
-import 'package:squares/squares.dart' as squares;
 
 
 

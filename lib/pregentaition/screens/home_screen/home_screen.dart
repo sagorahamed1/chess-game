@@ -1,6 +1,7 @@
 import 'package:chess/core/routes/app_routes.dart';
 import 'package:chess/pregentaition/widgets/custom_text.dart';
 import 'package:chess/pregentaition/widgets/custom_text_field.dart';
+import 'package:chess/services/firebase_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -206,6 +207,11 @@ class OnlineDialog extends StatelessWidget {
 
 
           CustomButton(title: "Play", onpress: (){
+          FirebaseService firebase =  FirebaseService();
+          firebase.postData("game", {
+            "name" : "sagor",
+            "age" : "kkdkdk"
+          });
             context.pushNamed(AppRoutes.playOnlineScreen);
           })
         ],
